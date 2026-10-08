@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Список покупок</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="header">
+      <p class="eyebrow">DOM · события · JavaScript</p>
+      <h1>Список покупок</h1>
+      <p class="subtitle">Добавьте товар кнопкой или клавишей Enter. Клик по пункту отмечает его купленным.</p>
+    </header>
+
+    <form id="add-form" class="add-form" autocomplete="off">
+      <label class="sr-only" for="item-input">Новый товар</label>
+      <input
+        id="item-input"
+        type="text"
+        placeholder="Например, молоко"
+        maxlength="80"
+        required
+      >
+      <button id="add-button" type="submit">Добавить</button>
+    </form>
+
+    <section class="stats" aria-live="polite">
+      <span id="total-count">0 товаров</span>
+      <span class="dot" aria-hidden="true"></span>
+      <span id="left-count">осталось 0</span>
+    </section>
+
+    <ul id="shopping-list" class="list"></ul>
+
+    <p id="empty-state" class="empty">Список пуст. Добавьте первый товар.</p>
+
+    <footer class="hint">
+      Клик по названию — куплено. Кнопка справа — удалить пункт.
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
