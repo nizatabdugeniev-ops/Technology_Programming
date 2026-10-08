@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация студента</title>
+  <style>
+    :root {
+      --bg: #f3f6fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --error: #dc2626;
+      --ok: #16a34a;
+      --border: #d1d5db;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 520px;
+      background: var(--card);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+
+    p.hint {
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-weight: 400;
+    }
+
+    .error {
+      display: none;
+      margin-top: 6px;
+      color: var(--error);
+      font-size: 13px;
+    }
+
+    .field.invalid input,
+    .field.invalid select {
+      border-color: var(--error);
+    }
+
+    .field.invalid .error {
+      display: block;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 8px;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: var(--primary-hover);
+    }
+
+    .success {
+      display: none;
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #dcfce7;
+      color: var(--ok);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Регистрация студента</h1>
+    <p class="hint">Заполните все обязательные поля и подтвердите согласие с правилами.</p>
+
+    <form id="regForm" novalidate>
+      <div class="field" id="fioField">
+        <label for="fio">ФИО *</label>
+        <input type="text" id="fio" name="fio" placeholder="Иванов Иван Иванович">
+        <div class="error" id="fioError">Введите ФИО.</div>
+      </div>
+
+      <div class="field" id="emailField">
+        <label for="email">E-mail *</label>
+        <input type="email" id="email" name="email" placeholder="student@university.ru">
+        <div class="error" id="emailError">Введите корректный e-mail.</div>
+      </div>
+
+      <div class="field" id="courseField">
+        <label for="course">Курс *</label>
+        <select id="course" name="course">
+          <option value="">Выберите курс</option>
+          <option value="1">1 курс</option>
+          <option value="2">2 курс</option>
+          <option value="3">3 курс</option>
+          <option value="4">4 курс</option>
+        </select>
+        <div class="error" id="courseError">Выберите курс.</div>
+      </div>
+
+      <div class="field" id="rulesField">
+        <label class="checkbox">
+          <input type="checkbox" id="rules" name="rules">
+          <span>Согласен(на) с правилами *</span>
+        </label>
+        <div class="error" id="rulesError">Необходимо согласие с правилами.</div>
+      </div>
+
+      <button type="submit">Зарегистрироваться</button>
+      <div class="success" id="successMessage">Данные заполнены корректно. Форма готова к отправке.</div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("regForm");
+    const fio = document.getElementById("fio");
+    const email = document.getElementById("email");
+    const course = document.getElementById("course");
+    const rules = document.getElementById("rules");
+    const successMessage = document.getElementById("successMessage");
+
+    function setError(fieldId, message) {
+      const field = document.getElementById(fieldId);
+      const error = field.querySelector(".error");
+      field.classList.add("invalid");
+      if (message) error.textContent = message;
+    }
+
+    function clearError(fieldId) {
+      document.getElementById(fieldId).classList.remove("invalid");
+    }
+
+    function isEmailValid(value) {
+      // Простая проверка формата e-mail
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    }
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault(); // не отправляем форму на сервер
+      successMessage.style.display = "none";
+
+      let isValid = true;
+
+      const fioValue = fio.value.trim();
+      const emailValue = email.value.trim();
+      const courseValue = course.value;
+      const rulesChecked = rules.checked;
+
+      // ФИО
+      if (!fioValue) {
+        setError("fioField", "Поле ФИО обязательно для заполнения.");
+        isValid = false;
+      } else {
+        clearError("fioField");
+      }
+
+      // E-mail
+      if (!emailValue) {
+        setError("emailField", "Поле e-mail обязательно для заполнения.");
+        isValid = false;
+      } else if (!isEmailValid(emailValue)) {
+        setError("emailField", "Введите e-mail в формате name@example.com.");
+        isValid = false;
+      } else {
+        clearError("emailField");
+      }
+
+      // Курс
+      if (!courseValue) {
+        setError("courseField", "Выберите курс обучения.");
+        isValid = false;
+      } else {
+        clearError("courseField");
+      }
+
+      // Согласие
+      if (!rulesChecked) {
+        setError("rulesField", "Поставьте галочку: согласие с правилами обязательно.");
+        isValid = false;
+      } else {
+        clearError("rulesField");
+      }
+
+      if (isValid) {
+        successMessage.style.display = "block";
+        // Здесь в реальном приложении была бы отправка на сервер:
+        // form.submit();
+      }
+    });
+  </script>
+</body>
+</html>
