@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Заявка на стажировку</title>
+  <style>
+    :root {
+      --bg: #f3f6fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --error: #dc2626;
+      --ok: #16a34a;
+      --border: #d1d5db;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 620px;
+      background: var(--card);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    h1 { margin: 0 0 8px; font-size: 24px; }
+    p.hint { margin: 0 0 22px; color: var(--muted); font-size: 14px; }
+    .field { margin-bottom: 16px; }
+    label { display: block; margin-bottom: 6px; font-weight: 600; }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: inherit;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 400;
+    }
+
+    .counter {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .error {
+      display: none;
+      margin-top: 6px;
+      color: var(--error);
+      font-size: 13px;
+    }
+
+    .field.invalid input,
+    .field.invalid select,
+    .field.invalid textarea {
+      border-color: var(--error);
+    }
+
+    .field.invalid .error { display: block; }
+
+    button {
+      width: 100%;
+      margin-top: 8px;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover { background: var(--primary-hover); }
+
+    .success {
+      display: none;
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #dcfce7;
+      color: var(--ok);
+      font-weight: 600;
+    }
+
+    @media (max-width: 520px) {
+      .group { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Заявка на стажировку</h1>
+    <p class="hint">Выберите минимум 2 навыка. Мотивационный текст — от 50 до 400 символов.</p>
+
+    <form id="internForm" novalidate>
+      <div class="field" id="fioField">
+        <label for="fio">ФИО *</label>
+        <input type="text" id="fio" name="fio" placeholder="Иванов Иван Иванович">
+        <div class="error">Введите ФИО.</div>
+      </div>
+
+      <div class="field" id="emailField">
+        <label for="email">E-mail *</label>
+        <input type="email" id="email" name="email" placeholder="student@university.ru">
+        <div class="error">Введите корректный e-mail.</div>
+      </div>
+
+      <div class="field" id="courseField">
+        <label for="course">Курс *</label>
+        <select id="course" name="course">
+          <option value="">Выберите курс</option>
+          <option value="1">1 курс</option>
+          <option value="2">2 курс</option>
+          <option value="3">3 курс</option>
+          <option value="4">4 курс</option>
+        </select>
+        <div class="error">Выберите курс.</div>
+      </div>
+
+      <div class="field" id="directionField">
+        <label for="direction">Направление *</label>
+        <select id="direction" name="direction">
+          <option value="">Выберите направление</option>
+          <option value="frontend">Frontend-разработка</option>
+          <option value="backend">Backend-разработка</option>
+          <option value="qa">Тестирование</option>
+          <option value="analytics">Аналитика данных</option>
+        </select>
+        <div class="error">Выберите направление стажировки.</div>
+      </div>
+
+      <div class="field" id="skillsField">
+        <label>Навыки * (минимум 2)</label>
+        <div class="group">
+          <label class="option"><input type="checkbox" name="skill" value="html"> HTML</label>
+          <label class="option"><input type="checkbox" name="skill" value="css"> CSS</label>
+          <label class="option"><input type="checkbox" name="skill" value="js"> JavaScript</label>
+          <label class="option"><input type="checkbox" name="skill" value="python"> Python</label>
+          <label class="option"><input type="checkbox" name="skill" value="sql"> SQL</label>
+          <label class="option"><input type="checkbox" name="skill" value="git"> Git</label>
+        </div>
+        <div class="error">Выберите минимум два навыка.</div>
+      </div>
+
+      <div class="field" id="motiveField">
+        <label for="motive">Мотивационный текст *</label>
+        <textarea id="motive" name="motive" placeholder="Почему вы хотите пройти стажировку?"></textarea>
+        <div class="counter" id="motiveCounter">0 / 400</div>
+        <div class="error">Текст должен содержать от 50 до 400 символов.</div>
+      </div>
+
+      <button type="submit">Отправить заявку</button>

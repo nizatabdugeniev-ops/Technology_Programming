@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Заказ товара</title>
+  <style>
+    :root {
+      --bg: #f3f6fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --error: #dc2626;
+      --ok: #16a34a;
+      --border: #d1d5db;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 560px;
+      background: var(--card);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    h1 { margin: 0 0 8px; font-size: 24px; }
+    p.hint { margin: 0 0 22px; color: var(--muted); font-size: 14px; }
+    .field { margin-bottom: 16px; }
+    label { display: block; margin-bottom: 6px; font-weight: 600; }
+
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 400;
+    }
+
+    .error {
+      display: none;
+      margin-top: 6px;
+      color: var(--error);
+      font-size: 13px;
+    }
+
+    .field.invalid input,
+    .field.invalid select {
+      border-color: var(--error);
+    }
+
+    .field.invalid .error { display: block; }
+
+    button {
+      width: 100%;
+      margin-top: 8px;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover { background: var(--primary-hover); }
+
+    .success {
+      display: none;
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #dcfce7;
+      color: var(--ok);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Заказ товара</h1>
+    <p class="hint">Выберите товар, укажите количество больше 0 и способ доставки.</p>
+
+    <form id="orderForm" novalidate>
+      <div class="field" id="productField">
+        <label for="product">Товар *</label>
+        <select id="product" name="product">
+          <option value="">Выберите товар</option>
+          <option value="laptop">Ноутбук</option>
+          <option value="phone">Смартфон</option>
+          <option value="headphones">Наушники</option>
+          <option value="monitor">Монитор</option>
+        </select>
+        <div class="error" id="productError">Выберите товар.</div>
+      </div>
+
+      <div class="field" id="qtyField">
+        <label for="qty">Количество *</label>
+        <input type="number" id="qty" name="qty" min="1" step="1" placeholder="1">
+        <div class="error" id="qtyError">Количество должно быть больше 0.</div>
+      </div>
+
+      <div class="field" id="deliveryField">
+        <label>Способ доставки *</label>
+        <div class="group">
+          <label class="option">
+            <input type="radio" name="delivery" value="courier">
+            Курьер
+          </label>
+          <label class="option">
+            <input type="radio" name="delivery" value="pickup">
+            Самовывоз
+          </label>
+          <label class="option">
+            <input type="radio" name="delivery" value="post">
+            Почта
+          </label>
+        </div>
+        <div class="error">Выберите способ доставки.</div>
+      </div>
+
+      <div class="field" id="extrasField">
+        <label>Дополнительные услуги</label>
+        <div class="group">
+          <label class="option">
+            <input type="checkbox" name="extra" value="gift">
+            Подарочная упаковка
+          </label>
+          <label class="option">
+            <input type="checkbox" name="extra" value="insurance">
+            Страховка заказа
+          </label>
+          <label class="option">
+            <input type="checkbox" name="extra" value="express">
+            Срочная сборка
+          </label>
+        </div>
+      </div>
+
+      <button type="submit">Оформить заказ</button>
+      <div class="success" id="successMessage"></div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("orderForm");
+    const product = document.getElementById("product");
+    const qty = document.getElementById("qty");
+    const successMessage = document.getElementById("successMessage");
+
+    function setError(fieldId, message) {
+      const field = document.getElementById(fieldId);
+      const error = field.querySelector(".error");
+      field.classList.add("invalid");
+      if
