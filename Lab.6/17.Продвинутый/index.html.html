@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тест из 5 вопросов</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="header">
+      <p class="eyebrow">DOM · события · JavaScript</p>
+      <h1>Мини-тест</h1>
+      <p class="subtitle">Пять вопросов о DOM и событиях. Выберите один вариант — следующий вопрос появится сам.</p>
+    </header>
+
+    <section class="progress" aria-hidden="true">
+      <span id="step">Вопрос 1 из 5</span>
+      <div class="bar"><div id="bar-fill" class="bar-fill"></div></div>
+    </section>
+
+    <section id="quiz" class="quiz" aria-live="polite"></section>
+
+    <p id="feedback" class="feedback" hidden></p>
+    <button id="next-button" type="button" class="next" hidden>Дальше</button>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
