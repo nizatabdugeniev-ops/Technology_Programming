@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Система учёта посещаемости студентов</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Система учёта посещаемости студентов</h1>
+    <p>Образование · Преподаватель / Студент</p>
+  </header>
+
+  <nav>
+    <button class="tab active" data-tab="register">Регистрация</button>
+    <button class="tab" data-tab="search">Поиск</button>
+    <button class="tab" data-tab="stats">Статистика</button>
+    <button class="tab" data-tab="students">Студенты</button>
+  </nav>
+
+  <main>
+    <!-- Регистрация посещения -->
+    <section id="register" class="panel active">
+      <h2>Регистрация посещения</h2>
+      <form id="attendanceForm">
+        <label>Студент
+          <select id="studentSelect" required></select>
+        </label>
+        <label>Предмет
+          <input type="text" id="subject" required placeholder="Например: Программирование">
+        </label>
+        <label>Дата
+          <input type="date" id="lessonDate" required>
+        </label>
+        <label>Статус
+          <select id="status" required>
+            <option value="присутствует">Присутствует</option>
+            <option value="отсутствует">Отсутствует</option>
+            <option value="опоздал">Опоздал</option>
+          </select>
+        </label>
+        <label>Преподаватель
+          <input type="text" id="teacher" value="Козлов А.А." required>
+        </label>
+        <button type="submit">Записать</button>
+      </form>
+      <div id="registerMsg" class="msg"></div>
+    </section>
+
+    <!-- Поиск -->
+    <section id="search" class="panel">
+      <h2>Поиск записей</h2>
+      <form id="searchForm">
+        <label>ID студента
+          <input type="text" id="searchStudent" placeholder="S001 или пусто">
+        </label>
+        <label>Предмет
+          <input type="text" id="searchSubject" placeholder="Часть названия">
+        </label>
+        <button type="submit">Найти</button>
+      </form>
+      <div id="searchResults" class="results"></div>
+    </section>
+
+    <!-- Статистика -->
+    <section id="stats" class="panel">
+      <h2>Статистика посещаемости</h2>
+      <form id="statsForm">
+        <label>ID студента
+          <input type="text" id="statsStudent" placeholder="S001 или пусто">
+        </label>
+        <label>Предмет
+          <input type="text" id="statsSubject" placeholder="или пусто">
+        </label>
+        <button type="submit">Показать</button>
+      </form>
+      <div id="statsResult" class="results"></div>
+    </section>
+
+    <!-- Студенты -->
+    <section id="students" class="panel">
+      <h2>Студенты</h2>
+      <form id="studentForm">
+        <label>ID (SXXX)
+          <input type="text" id="newId" required placeholder="S005" pattern="S[0-9]{3,}">
+        </label>
+        <label>ФИО
+          <input type="text" id="newName" required minlength="3">
+        </label>
+        <label>Группа
+          <input type="text" id="newGroup" required>
+        </label>
+        <button type="submit">Добавить студента</button>
+      </form>
+      <div id="studentMsg" class="msg"></div>
+      <div id="studentList" class="results"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Демонстрационная система · Данные хранятся в браузере (localStorage)</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
