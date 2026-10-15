@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Бронирование аудиторий — SPA</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Бронирование аудиторий университета</h1>
+    <p class="subtitle">Продвинутый уровень SPA</p>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab active" data-tab="rooms">Аудитории</button>
+    <button class="tab" data-tab="bookings">Бронирования</button>
+    <button class="tab" data-tab="rules">Правила</button>
+  </nav>
+
+  <main id="content">
+    <!-- Контент загружается динамически через JavaScript -->
+  </main>
+
+  <!-- Модальное окно для бронирования -->
+  <div id="bookingModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Забронировать аудиторию</h2>
+      <form id="bookingForm">
+        <input type="hidden" id="roomId">
+        <div class="form-group">
+          <label>Аудитория:</label>
+          <span id="roomNameDisplay"></span>
+        </div>
+        <div class="form-group">
+          <label for="bookDate">Дата:</label>
+          <input type="date" id="bookDate" required>
+        </div>
+        <div class="form-group">
+          <label for="startTime">Начало:</label>
+          <input type="time" id="startTime" required>
+        </div>
+        <div class="form-group">
+          <label for="endTime">Окончание:</label>
+          <input type="time" id="endTime" required>
+        </div>
+        <div class="form-group">
+          <label for="purpose">Цель бронирования:</label>
+          <input type="text" id="purpose" placeholder="Лекция, семинар, совещание..." required>
+        </div>
+        <div class="form-group">
+          <label for="bookedBy">Ваше имя:</label>
+          <input type="text" id="bookedBy" placeholder="Фамилия И.О." required>
+        </div>
+        <div id="formError" class="error"></div>
+        <button type="submit" class="btn primary">Забронировать</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
