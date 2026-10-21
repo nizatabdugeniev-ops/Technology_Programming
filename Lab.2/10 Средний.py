@@ -4,6 +4,10 @@ hundreds = number // 100     # сотни
 tens = number // 10 % 10     # десятки
 units = number % 10          # единицы
 
+print("Сотни:", hundreds)
+print("Десятки:", tens)
+print("Единицы:", units)
+
 sum_digits = hundreds + tens + units          # сумма цифр
 product_digits = hundreds * tens * units      # произведение цифр
 
