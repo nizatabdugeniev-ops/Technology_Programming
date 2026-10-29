@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Дашборд задач</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Дашборд задач</h1>
+    <p class="subtitle">JSONPlaceholder /todos</p>
+
+    <button id="loadBtn" class="btn primary">Загрузить задачи</button>
+
+    <div id="status" class="status" aria-live="polite"></div>
+
+    <div id="dashboard" class="dashboard hidden">
+      <div class="stats">
+        <div class="stat-card completed">
+          <span class="stat-label">Выполнено</span>
+          <span id="completedCount" class="stat-value">0</span>
+        </div>
+        <div class="stat-card pending">
+          <span class="stat-label">Не выполнено</span>
+          <span id="pendingCount" class="stat-value">0</span>
+        </div>
+        <div class="stat-card total">
+          <span class="stat-label">Всего</span>
+          <span id="totalCount" class="stat-value">0</span>
+        </div>
+      </div>
+
+      <div class="filter-container">
+        <label for="userFilter">Фильтр по userId:</label>
+        <select id="userFilter" class="user-filter">
+          <option value="">Все пользователи</option>
+        </select>
+      </div>
+
+      <ul id="todosList" class="todos-list"></ul>
+    </div>
+
+    <button id="retryBtn" class="btn secondary hidden">Повторить попытку</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

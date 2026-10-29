@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Публикации с поиском</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Список публикаций</h1>
+    <p class="subtitle">Поиск по заголовку на клиенте</p>
+
+    <button id="loadBtn" class="btn primary">Загрузить посты</button>
+
+    <div id="status" class="status" aria-live="polite"></div>
+
+    <div id="searchContainer" class="search-container hidden">
+      <input 
+        type="text" 
+        id="searchInput" 
+        class="search-input" 
+        placeholder="Поиск по заголовку..."
+        autocomplete="off"
+      >
+    </div>
+
+    <ul id="postsList" class="posts-list"></ul>
+
+    <button id="retryBtn" class="btn secondary hidden">Повторить попытку</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
