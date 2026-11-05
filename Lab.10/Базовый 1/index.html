@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Модульный конвертер температур</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Конвертер температур</h1>
+        <p class="subtitle">Модульное приложение (базовый уровень)</p>
+
+        <div class="converter">
+            <div class="input-group">
+                <label for="tempInput">Значение:</label>
+                <input type="text" id="tempInput" placeholder="Введите число" autocomplete="off">
+            </div>
+
+            <div class="input-group">
+                <label for="fromUnit">Из:</label>
+                <select id="fromUnit">
+                    <option value="C">Цельсий (°C)</option>
+                    <option value="F">Фаренгейт (°F)</option>
+                    <option value="K">Кельвин (K)</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="toUnit">В:</label>
+                <select id="toUnit">
+                    <option value="F">Фаренгейт (°F)</option>
+                    <option value="C">Цельсий (°C)</option>
+                    <option value="K">Кельвин (K)</option>
+                </select>
+            </div>
+
+            <button id="convertBtn">Конвертировать</button>
+
+            <div id="result" class="result"></div>
+            <div id="error" class="error"></div>
+        </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
